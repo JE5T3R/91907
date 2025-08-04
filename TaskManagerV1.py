@@ -74,7 +74,7 @@ root.mainloop()
 
 #Entering a date in the future
 #some code from -https://www.geeksforgeeks.org/python/create-a-date-picker-calendar-tkinter/-
-
+'''
 from tkinter import *
 from datetime import date
 
@@ -120,7 +120,7 @@ result_label = Label(root, text="")
 result_label.pack()
 
 root.mainloop()
-
+'''
 #frames and switching between them
 '''
 #Code taken from my earlier code in the year for a temperature converter
@@ -171,7 +171,7 @@ show_frame(frame_main)
 root.mainloop()'''
 
 #Using Json files
-'''import tkinter as tk
+'''from tkinter import *
 import json
 import os 
 
@@ -203,38 +203,38 @@ def save_to_json():
         json.dump(data, f, indent=4)
 
 #After pressing save, the entry boxes will have the information deleted and be ready for new inputs
-    entry1.delete(0, tk.END)
-    entry2.delete(0, tk.END)
-    entry3.delete(0, tk.END)
+    entry1.delete(0, END)
+    entry2.delete(0, END)
+    entry3.delete(0, END)
 
     status_label.config(text="Data saved successfully!")
 
-root = tk.Tk()
+root = Tk()
 root.title("User Input to JSON")
 
 #  Labels and Entry boxes
-tk.Label(root, text="Task Name:").grid(row=0, column=0, padx=5, pady=5)
-entry1 = tk.Entry(root)
+Label(root, text="Task Name:").grid(row=0, column=0, padx=5, pady=5)
+entry1 = Entry(root)
 entry1.grid(row=0, column=1, padx=5, pady=5)
 
-tk.Label(root, text="Task Description:").grid(row=1, column=0, padx=5, pady=5)
-entry2 = tk.Entry(root)
+Label(root, text="Task Description:").grid(row=1, column=0, padx=5, pady=5)
+entry2 = Entry(root)
 entry2.grid(row=1, column=1, padx=5, pady=5)
 
-tk.Label(root, text="Due date:").grid(row=2, column=0, padx=5, pady=5)
-entry3 = tk.Entry(root)
+Label(root, text="Due date:").grid(row=2, column=0, padx=5, pady=5)
+entry3 = Entry(root)
 entry3.grid(row=2, column=1, padx=5, pady=5)
 
 # Save to json Button
-save_button = tk.Button(root, text="Save to JSON", command=save_to_json)
+save_button = Button(root, text="Save to JSON", command=save_to_json)
 save_button.grid(row=3, column=0, columnspan=2, pady=10)
 
 # words that apear when user wants to save file
-status_label = tk.Label(root, text="")
+status_label = Label(root, text="")
 status_label.grid(row=4, column=0, columnspan=2)
 
-root.mainloop()
-'''
+root.mainloop()'''
+
 
 
 #-----------------------------------
@@ -254,3 +254,5 @@ root.mainloop()
             data = json.load(f)
     except json.JSONDecodeError:
         data = []'''
+
+#How to display a json dictionary
