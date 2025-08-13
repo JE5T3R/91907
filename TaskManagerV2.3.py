@@ -83,6 +83,9 @@ date_label.pack(pady=(20,5))
 btn_cent = Button(button_frame, text="Enter date", bg="lightgrey", font=style, command=lambda: show_frame(frame_cent))
 btn_cent.pack(pady=(5,20))
 
+taskframe_btn = Button(button_frame, text="See tasks", bg="lightgrey", font=style, command=lambda: show_frame(taskframe))
+taskframe_btn.pack(pady=(5,20))
+
 
 label3 = Label(button_frame, text="Task Discription", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
 label3.pack(pady=(0, 5))
@@ -90,7 +93,7 @@ label3.pack(pady=(0, 5))
 discription = Text(button_frame, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 18", width=20, height=5)
 discription.pack()
 
-
+'''
 img = PhotoImage(file="Images/TestImg.png")
 smallerimg = img.subsample(4, 4)
 image_label = Label(button_frame, image=smallerimg)
@@ -99,7 +102,7 @@ image_label.pack(pady=(20, 3))
 
 label4 = Label(button_frame, text=health, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
 label4.pack(pady=(0, 20))
-
+'''
 
 
 
@@ -153,6 +156,8 @@ print(f'Difference is {delta} days')
 
 with open ("TaskManagerV1json") as f:
     data = json.load(f)
+
+#Adding new tasts to the json file
 '''
 for key, value in data.items():
     c = value["taskname"]
@@ -183,18 +188,20 @@ with open("TaskManagerV1json", "w") as f:
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
 #I am trying to display the json dictionary items
+
+question_num = len(data)  # check how many questions are already in the quiz 
+taskframe = Frame(container)
+taskframe.place(relwidth=1, relheight=1)
 for key, value in data.items():
     c = value["taskname"]
     a = value["discription"]
     b = value["Duedate"]
-question_num = len(data)  # check how many questions are already in the quiz 
-test = 3
-while test >0:
-    for i in range (question_num):
-        dis1 = Label(root, text=c).pack()
-        dis2 = Label(root, text=a).pack()
-        dis3 = Label(root, text=b).pack()
-    test - 1
+    dis1 = Label(taskframe, text=c).pack()
+    dis2 = Label(taskframe, text=a).pack()
+    dis3 = Label(taskframe, text="Due by " + b).pack()
+
+
+Button(taskframe, text="Back", command=lambda: show_frame(frame_main)).pack()
 
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
@@ -202,8 +209,8 @@ while test >0:
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
     
-'''print(data['Task1']['taskname'])
-'''
+print(data['Task1']['taskname'])
+
 # Show main frame when proram starts
 show_frame(frame_main)
 root.mainloop()
