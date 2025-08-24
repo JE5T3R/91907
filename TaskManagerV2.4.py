@@ -60,21 +60,23 @@ button_frame.pack()
 
 
 #---creat task window---
+
 label1 = Label(button_frame, text="Task manager", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 20")
 label1.pack()
-
+#Frame
 my_frame = Frame(root, borderwidth=2, relief="solid", padx=10, pady=10)
 my_frame.pack(pady=20) # Use pack to position the frame in the root window
 
+
+#Name of the task
 label2 = Label(button_frame, text="Task Name", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
 label2.pack(pady=(10, 5))
-
 taskname = Entry(button_frame, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 18", width=20)
 taskname.pack()
 
 
 
-
+#displays todays date
 date_label = Label(button_frame, text=today, font="Arial 15")
 date_label.pack(pady=(20,5))
 
@@ -85,24 +87,11 @@ btn_cent.pack(pady=(5,20))
 taskframe_btn = Button(button_frame, text="See tasks", bg="lightgrey", font=style, command=lambda: show_frame(taskframe))
 taskframe_btn.pack(pady=(5,20))
 
-
+#Discritption of the task
 label3 = Label(button_frame, text="Task Discription", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
 label3.pack(pady=(0, 5))
-
 discription = Text(button_frame, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 18", width=20, height=5)
 discription.pack()
-
-'''
-img = PhotoImage(file="Images/TestImg.png")
-smallerimg = img.subsample(4, 4)
-image_label = Label(button_frame, image=smallerimg)
-image_label.pack(pady=(20, 3))
-
-
-label4 = Label(button_frame, text=health, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
-label4.pack(pady=(0, 20))
-'''
-
 
 
 #--Class manager window ^
@@ -135,35 +124,11 @@ result_label.pack()
 Button(frame_cent, text="Back", command=lambda: show_frame(frame_main)).pack()#takes me back to the main frame
 
 
-'''print(today)
-'''
-#how to ensure that the due date is due
-''' 
-str_d1 = today # curent date
-str_d2 = today #Due date --> Instead of today, it needs to be the date in the json dictionary
-
-# convert string to date object
-#d1 = datetime.strptime(str_d1, "%Y/%m/%d")
-#d2 = datetime.strptime(str_d2, "%Y/%m/%d")
-
-# difference between dates in timedelta
-delta = str_d2 - str_d1 # Due date - Curent date
-print(f'Difference is {delta} days')
-'''
-
-
-
 with open ("TaskManagerV1json") as f:
     data = json.load(f)
 
 
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
 #I am trying to display the json dictionary items
-
 question_num = len(data)  # check how many questions are already in the quiz 
 taskframe = Frame(container, width=350, height=250)
 taskframe.pack(fill="both", expand=True)
@@ -181,13 +146,43 @@ for key, value in data.items():
     dis3 = Label(taskframe, text="Due by " + b, bg="lightblue", bd=2, relief="solid", width=30, font="Arial").pack(pady=(0,40))
 
 
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+#----------------------------------------------------------------
+    #the entered date doesnt want to get saved
+#----------------------------------------------------------------
+with open("TaskManagerV1json", 'r') as f:
+    data = json.load(f)
 
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
-#----------------------------------------------------------------------------
+    print (data)
+
+def save_data():
+    tskname = taskname.get()
+    taskdesc = discription.get()
+    strtaskdate = str(entered_date)
+    taskdate = strtaskdate
+
+    num = len(data)  # check how many questions are already in the quiz 
+    new = dict()
+    new["taskname"] = tskname #This will be replaced with an entry box
+    new["discription"] = taskdesc # this will be replaced with an entry box
+    new["Duedate"] = taskdate
+
     
+    
+    c_key = "Task" + str(num+1)
+    data[c_key] = new
+
+    with open("TaskManagerV1json", "w") as f:
+        json.dump(data, f, indent=2)
+
+
+save_button = Button(root, text="Save Data", command=save_data)
+save_button.pack()
+
+
 
 # Show main frame when proram starts
 show_frame(frame_main)
