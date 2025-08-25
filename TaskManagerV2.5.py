@@ -8,6 +8,7 @@ from datetime import datetime
 
 root = Tk()
 
+
 # Responsive window positioning
 window_width = 340
 window_height = 700
@@ -54,56 +55,57 @@ container = Frame(root)
 container.pack(fill="both", expand=True)
 
 # -------- Frame 1: Main Menu ----------
-frame_main = Frame(container)
+frame_main = Frame(container, bg="#CEECFF")
 frame_main.place(relwidth=1, relheight=1)
 
-label1 = Label(frame_main, text="Task manager", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 20")
+label1 = Label(frame_main, text="Task manager", bg="#A6B1FF", borderwidth=1, relief="solid", font="ARIAL 20")
 label1.pack()
 
 my_frame = Frame(frame_main, borderwidth=2, relief="solid", padx=10, pady=10)
 my_frame.pack(pady=20)
 
-label2 = Label(frame_main, text="Task Name", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
+label2 = Label(frame_main, text="Task Name", bg="#A6B1FF", borderwidth=1, relief="solid", font="ARIAL 12")
 label2.pack(pady=(10, 5))
-taskname = Entry(frame_main, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 18", width=20)
+taskname = Entry(frame_main, bg="#A6B1FF", borderwidth=1, relief="solid", font="ARIAL 18", width=20)
 taskname.pack()
 
-date_label = Label(frame_main, text=today, font="Arial 15")
+date_label = Label(frame_main, text=today, font="Arial 15", bg="#CEECFF")
 date_label.pack(pady=(20,5))
 
-btn_cent = Button(frame_main, text="Enter date", bg="lightgrey", font=style, command=lambda: show_frame(frame_cent))
+btn_cent = Button(frame_main, text="Enter date", bg="#A6DDFF", font=style, command=lambda: show_frame(frame_cent))
 btn_cent.pack(pady=(5,20))
 
-taskframe_btn = Button(frame_main, text="See tasks", bg="lightgrey", font=style, command=lambda: show_frame(taskframe))
+taskframe_btn = Button(frame_main, text="See tasks", bg="#A6DDFF", font=style, command=lambda: show_frame(taskframe))
 taskframe_btn.pack(pady=(5,20))
 
-label3 = Label(frame_main, text="Task Discription", bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 12")
+label3 = Label(frame_main, text="Task Discription", bg="#A6B1FF", borderwidth=1, relief="solid", font="ARIAL 12")
 label3.pack(pady=(0, 5))
-discription = Text(frame_main, bg="lightblue", borderwidth=1, relief="solid", font="ARIAL 18", width=20, height=5)
+discription = Text(frame_main, bg="#A6B1FF", borderwidth=1, relief="solid", font="ARIAL 18", width=20, height=5)
 discription.pack()
 
 # -------- Frame 2: Date Entry --------
-frame_cent = Frame(container)
+frame_cent = Frame(container, bg="#CEECFF")
 frame_cent.place(relwidth=1, relheight=1)
 
-Label(frame_cent, text="Year:", font="Arial 30").pack()
-year_entry = Entry(frame_cent, font="Arial 22", bg="lightblue")
+Label(frame_cent, text="Year:", font="Arial 30", bg="#CEECFF").pack()
+year_entry = Entry(frame_cent, font="Arial 22", bg="#A6B1FF")
 year_entry.pack()
 
-Label(frame_cent, text="Month:", font="Arial 30").pack()
-month_entry = Entry(frame_cent, font="Arial 22", bg="lightblue")
+Label(frame_cent, text="Month:", font="Arial 30", bg="#CEECFF").pack()
+month_entry = Entry(frame_cent, font="Arial 22", bg="#A6B1FF")
 month_entry.pack()
 
-Label(frame_cent, text="Day:", font="Arial 30").pack()
-day_entry = Entry(frame_cent, font="Arial 22", bg="lightblue")
+Label(frame_cent, text="Day:", font="Arial 30", bg="#CEECFF").pack()
+day_entry = Entry(frame_cent, font="Arial 22", bg="#A6B1FF")
 day_entry.pack()
 
-submit_button = Button(frame_cent, text="Submit", command=get_future_date, font="Arial 25", bg="lightgrey")
-submit_button.pack()
+submit_button = Button(frame_cent, text="Submit", command=get_future_date, font="Arial 25", bg="#A6DDFF")
+submit_button.pack(pady=20)
 
-result_label = Label(frame_cent, text="")
+result_label = Label(frame_cent, text="", bg="#CEECFF", font="Arial 8")
 result_label.pack()
-Button(frame_cent, text="Back", command=lambda: show_frame(frame_main)).pack()
+
+Button(frame_cent, text="Back", command=lambda: show_frame(frame_main), width=11, height=2, bg="#A6DDFF", font=style).pack(pady=20)
 
 # -------- Load or Initialize Task Data --------
 if os.path.exists("TaskManagerV1.json"):
@@ -119,7 +121,7 @@ taskframe.place(relwidth=1, relheight=1)
 # Static header
 Button(taskframe, text="Back", command=lambda: show_frame(frame_main), font="Arial 20").pack(pady=10)
 
-# Scrollable task content area
+# Scrollable task frame area
 canvas = Canvas(taskframe, bg="white")
 scrollbar = Scrollbar(taskframe, orient="vertical", command=canvas.yview)
 task_content = Frame(canvas, bg="white")
@@ -129,7 +131,7 @@ task_content.bind(
     lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
 )
 
-canvas.create_window((0, 0), window=task_content, anchor="nw")
+canvas.create_window((0, 0), window=task_content, anchor="center")
 canvas.configure(yscrollcommand=scrollbar.set)
 
 canvas.pack(side="left", fill="both", expand=True)
@@ -157,20 +159,17 @@ def refresh_taskframe():
         a = value["discription"]
         b = value["Duedate"]
 
-        task_block = Frame(task_content, bg="lightblue", bd=2, relief="solid")
-        task_block.pack(pady=10, fill="x", padx=5)
+        task_block = Frame(task_content, bg="#A6B1FF", bd=2, relief="solid")
+        task_block.pack(pady=10, fill="x", padx=5, expand=True)
 
-        Label(task_block, text="Task Name", bg="lightblue", font="Arial").pack(anchor="w", fill="x", expand=True)
-        name_label = Label(task_block, text=c, bg="lightblue", font="Arial", wraplength=300, justify="left")
-        name_label.pack(anchor="w", fill="x")
+        Label(task_block, text="Task Name", bg="#A6B1FF", font="Arial").pack(anchor="center", fill="x", expand=True)
+        name_label = Label(task_block, text=c, bg="#A6B1FF", font="Arial", wraplength=300, justify="left").pack(anchor="center", fill="x")
 
-        Label(task_block, text="Discription", bg="lightblue", font="Arial").pack(anchor="w", fill="x", expand=True)
-        desc_label = Label(task_block, text=a, bg="lightblue", font="Arial", wraplength=300, justify="left")
-        desc_label.pack(anchor="w", fill="x", expand=True)
+        Label(task_block, text="Discription", bg="#A6B1FF", font="Arial").pack(anchor="w", fill="x", expand=True)
+        desc_label = Label(task_block, text=a, bg="#A6B1FF", font="Arial", wraplength=300, justify="left").pack(anchor="w", fill="x", expand=True)
 
-        Label(task_block, text="Due Date", bg="lightblue", font="Arial").pack(anchor="w", fill="x", expand=True)
-        date_label = Label(task_block, text="Due by " + b, bg="lightblue", font="Arial", wraplength=300, justify="left")
-        date_label.pack(anchor="w", fill="x", expand=True)
+        Label(task_block, text="Due Date", bg="#A6B1FF", font="Arial").pack(anchor="w", fill="x", expand=True)
+        date_label = Label(task_block, text="Due by " + b, bg="#A6B1FF", font="Arial", wraplength=300, justify="left").pack(anchor="w", fill="x", expand=True)
 
         Button(task_block, text="Delete Task", bg="red", fg="white", font="Arial 12",
                command=lambda k=key: delete_task(k)).pack(pady=5)
@@ -204,8 +203,8 @@ def save_data():
     result_label.config(text="Task saved successfully!")
     refresh_taskframe()
 
-save_button = Button(frame_main, text="Save Data", command=save_data)
-save_button.pack()
+save_button = Button(frame_main, text="Save Data", command=save_data, width=20, height=2, bg="#A6DDFF", font=style)
+save_button.pack(pady=20)
 
 show_frame(frame_main)
 root.mainloop()
